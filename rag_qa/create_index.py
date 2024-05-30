@@ -96,24 +96,6 @@ def arg_parser(args: Optional[list] = None) -> argparse.Namespace:
     return parser.parse_args(args)
 
 
-def main() -> None:
-    """
-    Deal with commandline options, then call create_index.
-
-    Returns:
-        None
-    """
-
-    args = arg_parser()
-
-    if args.indir:
-        infiles = get_infile_names(
-            args.indir, args.outdir, incremental=args.incremental
-        )
-
-    create_index(infiles, args.outdir)
-
-
 def create_index(infiles: List[str], outdir: str) -> None:
     """
     Create index for the files listed in infiles.
@@ -141,6 +123,22 @@ def create_index(infiles: List[str], outdir: str) -> None:
         infiles, outdir, model_ss, tokenizer_ss, max_length, vector_method, nclus_ivf
     )
 
+def main() -> None:
+    """
+    Deal with commandline options, then call create_index.
+
+    Returns:
+        None
+    """
+
+    args = arg_parser()
+
+    if args.indir:
+        infiles = get_infile_names(
+            args.indir, args.outdir, incremental=args.incremental
+        )
+
+    create_index(infiles, args.outdir)
 
 if __name__ == "__main__":
     main()
