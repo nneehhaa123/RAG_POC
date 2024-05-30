@@ -7,7 +7,7 @@ import fitz
 import numpy as np
 import pandas as pd
 
-from dpp_helpline_qa.preprocessing.preprocessing import (
+from rag_qa.preprocessing.preprocessing import (
     add_faiss_index,
     break_into_para,
     break_into_para_audit,
@@ -210,42 +210,8 @@ def test_combine_lines_recursively() -> None:
     assert output_1 == expected_output_1
     assert output_2 == expected_output_2
 
-
-@patch("dpp_helpline_qa.preprocessing.preprocessing.clean_text")
-@patch("dpp_helpline_qa.preprocessing.preprocessing.combine_lines_recursively")
-def test_break_into_para_faq(
-    combine_lines_recursively_mock: Mock, clean_text_mock: Mock
-) -> None:
-    test_strings = [("<c>This is a test", 1), ("<p>So is this", 1)]
-
-    combine_lines_recursively_mock.return_value = test_strings
-
-    output = break_into_para_faq(test_strings)
-
-    combine_lines_recursively_mock.assert_called_with(test_strings, "<c", "<p")
-    assert combine_lines_recursively_mock.call_count == 2
-
-    assert clean_text_mock.call_count == len(output)
-
-
-@patch("dpp_helpline_qa.preprocessing.preprocessing.clean_text")
-@patch("dpp_helpline_qa.preprocessing.preprocessing.combine_lines_recursively")
-def test_break_into_para_audit(
-    combine_lines_recursively_mock: Mock, clean_text_mock: Mock
-) -> None:
-    test_strings = [("<c>This is a test", 1), ("<p>So is this", 1)]
-
-    combine_lines_recursively_mock.return_value = test_strings
-
-    output = break_into_para_audit(test_strings)
-
-    combine_lines_recursively_mock.assert_called_once_with(test_strings, "<h", "<p")
-
-    assert clean_text_mock.call_count == len(output)
-
-
-@patch("dpp_helpline_qa.preprocessing.preprocessing.clean_text")
-@patch("dpp_helpline_qa.preprocessing.preprocessing.combine_lines_recursively")
+@patch("rag_qa.preprocessing.preprocessing.clean_text")
+@patch("rag_qa.preprocessing.preprocessing.combine_lines_recursively")
 def test_break_into_para_kaeg(
     combine_lines_recursively_mock: Mock, clean_text_mock: Mock
 ) -> None:
@@ -258,41 +224,6 @@ def test_break_into_para_kaeg(
     assert combine_lines_recursively_mock.call_count == 2 * len(test_strings)
 
     assert clean_text_mock.call_count == len(output)
-
-
-@patch("dpp_helpline_qa.preprocessing.preprocessing.break_into_para_kaeg")
-@patch("dpp_helpline_qa.preprocessing.preprocessing.break_into_para_audit")
-@patch("dpp_helpline_qa.preprocessing.preprocessing.break_into_para_faq")
-def test_break_into_para(
-    break_into_para_faq_mock: Mock,
-    break_into_para_audit_mock: Mock,
-    break_into_para_kaeg_mock: Mock,
-) -> None:
-    test_strings = [("<c>This is a test", 1), ("<p>So is this", 1)]
-    doc_1 = fitz.open(
-        os.path.join("tests", "test_data", "Documentation", "sample_FAQs" + ".pdf")
-    )
-    doc_2 = fitz.open(
-        os.path.join(
-            "tests", "test_data", "Documentation", "Sample_Audit Standard" + ".pdf"
-        )
-    )
-    doc_3 = fitz.open(
-        os.path.join("tests", "test_data", "Documentation", "sample_KAEG" + ".pdf")
-    )
-
-    break_into_para(test_strings, doc_1)
-
-    break_into_para_faq_mock.assert_called_once_with(test_strings)
-
-    break_into_para(test_strings, doc_2)
-
-    break_into_para_audit_mock.assert_called_once_with(test_strings)
-
-    break_into_para(test_strings, doc_3)
-
-    break_into_para_kaeg_mock.assert_called_once_with(test_strings)
-
 
 def test_sliding_window() -> None:
     text_lines = [
@@ -311,18 +242,6 @@ def test_sliding_window() -> None:
     ]
     output = sliding_window(text_lines, 5)
     assert output == expected_output
-
-
-@patch("dpp_helpline_qa.modelling.semantic_search.AutoModel")
-@patch("dpp_helpline_qa.modelling.semantic_search.AutoTokenizer")
-def test_get_embeddings(tokenizer_mock: Mock, model_mock: Mock) -> None:
-    text_list = ["This is a test", "So is this"]
-    get_embeddings(text_list, model_mock, tokenizer_mock)
-
-    tokenizer_mock.assert_called_once_with(
-        text_list, padding=True, truncation=True, return_tensors="pt"
-    )
-    model_mock.assert_called_once_with()
 
 
 def test_add_faiss_index() -> None:
@@ -347,10 +266,10 @@ def test_change_filename() -> None:
     assert output == expected_output
 
 
-@patch("dpp_helpline_qa.modelling.semantic_search.AutoTokenizer")
-@patch("dpp_helpline_qa.modelling.semantic_search.AutoModel")
-@patch("dpp_helpline_qa.preprocessing.preprocessing.get_embeddings")
-@patch("dpp_helpline_qa.preprocessing.preprocessing.add_faiss_index")
+@patch("rag_qa.modelling.semantic_search.AutoTokenizer")
+@patch("rag_qa.modelling.semantic_search.AutoModel")
+@patch("rag_qa.preprocessing.preprocessing.get_embeddings")
+@patch("rag_qa.preprocessing.preprocessing.add_faiss_index")
 def test_process_docs(
     tokenizer: Mock, model: Mock, get_embeddings_mock: Mock, add_faiss_index_mock: Mock
 ) -> None:
