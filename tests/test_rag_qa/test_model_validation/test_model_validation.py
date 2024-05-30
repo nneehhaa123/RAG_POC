@@ -5,14 +5,14 @@ import pandas as pd
 import pytest
 from nltk.corpus import wordnet
 
-from dpp_helpline_qa.model_validation.model_validation import (
+from rag_qa.model_validation.model_validation import (
     answer_scoring,
     cal_em_score,
     calculate_semantic_similarity,
     nltk2wn_tag,
     text_preprocess,
 )
-from dpp_helpline_qa.modelling.semantic_search import load_model_ss
+from rag_qa.modelling.semantic_search import load_model_ss
 
 
 def test_nltk2wn_tag() -> None:
