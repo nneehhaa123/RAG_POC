@@ -8,8 +8,8 @@ from typing import List, Optional
 
 import yaml
 
-from dpp_helpline_qa.modelling.semantic_search import load_model_ss
-from dpp_helpline_qa.preprocessing.preprocessing import process_docs
+from rag_qa.modelling.semantic_search import load_model_ss
+from rag_qa.preprocessing.preprocessing import process_docs
 
 
 def unindexed(infiles: List[str], indir: str, outdir: str) -> List[str]:
@@ -81,7 +81,7 @@ def arg_parser(args: Optional[list] = None) -> argparse.Namespace:
     Returns:
         argparse.Namespace: the parsed command line arguments
     """
-    parser = argparse.ArgumentParser(description="DPP helpline tool")
+    parser = argparse.ArgumentParser(description="RAG QA tool")
     parser.add_argument("--indir", help="Directory containing input files")
     parser.add_argument(
         "--outdir",
