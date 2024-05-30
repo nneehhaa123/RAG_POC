@@ -5,8 +5,8 @@ from typing import Optional
 import pandas as pd
 import yaml
 
-from dpp_helpline_qa.model_validation.model_validation import answer_scoring
-from dpp_helpline_qa.modelling.semantic_search import load_model_ss
+from rag_qa.model_validation.model_validation import answer_scoring
+from rag_qa.modelling.semantic_search import load_model_ss
 
 
 def arg_parser(args: Optional[list] = None) -> argparse.Namespace:
@@ -18,7 +18,7 @@ def arg_parser(args: Optional[list] = None) -> argparse.Namespace:
     Returns:
         argparse.Namespace: the parsed command line arguments
     """
-    parser = argparse.ArgumentParser(description="DPP helpline tool")
+    parser = argparse.ArgumentParser(description="RAG QA tool")
     parser.add_argument(
         "--filepath", help="Path to a file containing context, answers and ground truth"
     )
