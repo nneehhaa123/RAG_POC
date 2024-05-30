@@ -1,4 +1,4 @@
-#project: DPPAuditHelplineTool
+#project: RAGQATool
 preprocessing:
   max_context_length: 400
   vector_simalirity_method: FlatL2
