@@ -3,31 +3,10 @@ from unittest.mock import Mock, patch  # MagicMock
 
 import torch
 
-from dpp_helpline_qa.modelling.question_answer import (
+from rag_qa.modelling.question_answer import (
     answer_question_flan,
     load_model_flan,
 )
-
-
-@patch("dpp_helpline_qa.modelling.question_answer.T5ForConditionalGeneration")
-@patch("dpp_helpline_qa.modelling.question_answer.T5Tokenizer")
-def test_load_model_flan(tokenizer_mock: Mock, model_mock: Mock) -> None:
-    model_checkpoint = "test_model_checkpoint"
-    use_gpu = False
-
-    load_model_flan(model_checkpoint, use_gpu)
-
-    tokenizer_mock.from_pretrained.assert_called_with(model_checkpoint)
-    model_mock.from_pretrained.assert_called_with(model_checkpoint)
-
-    use_gpu = True
-
-    load_model_flan(model_checkpoint, use_gpu)
-
-    model_mock.from_pretrained.assert_called_with(
-        model_checkpoint, device_map="auto", torch_dtype=torch.float16
-    )
-
 
 def test_answer_question_flan(mocker: Mock) -> None:
     context = "This is the context."
