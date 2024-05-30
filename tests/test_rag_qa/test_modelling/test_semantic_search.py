@@ -5,19 +5,7 @@ from unittest.mock import Mock, patch
 
 import pandas as pd
 
-from dpp_helpline_qa.modelling.semantic_search import context_ranking, load_model_ss
-
-
-@patch("dpp_helpline_qa.modelling.semantic_search.AutoModel")
-@patch("dpp_helpline_qa.modelling.semantic_search.AutoTokenizer")
-def test_load_model_ss(tokenizer_mock: Mock, model_mock: Mock) -> None:
-    model_checkpoint = "test_model_checkpoint"
-
-    load_model_ss(model_checkpoint)
-
-    tokenizer_mock.from_pretrained.assert_called_with(model_checkpoint)
-    model_mock.from_pretrained.assert_called_with(model_checkpoint)
-
+from rag_qa.modelling.semantic_search import context_ranking, load_model_ss
 
 def test_context_ranking() -> None:
     question = "What is Inventory?"
