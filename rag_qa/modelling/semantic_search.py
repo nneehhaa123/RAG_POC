@@ -8,7 +8,7 @@ import transformers
 from datasets import Dataset
 from transformers import AutoModel, AutoTokenizer
 
-from dpp_helpline_qa.preprocessing.preprocessing import get_embeddings
+from rag_qa.preprocessing.preprocessing import get_embeddings
 
 
 def load_model_ss(
