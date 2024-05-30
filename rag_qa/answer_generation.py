@@ -8,11 +8,11 @@ import pandas as pd
 import transformers
 import yaml
 
-from dpp_helpline_qa.modelling.question_answer import (
+from rag_qa.modelling.question_answer import (
     answer_question_flan,
     load_model_flan,
 )
-from dpp_helpline_qa.modelling.semantic_search import context_ranking, load_model_ss
+from rag_qa.modelling.semantic_search import context_ranking, load_model_ss
 
 pd.set_option("display.max_colwidth", 255)
 
@@ -106,7 +106,7 @@ def arg_parser(args: Optional[list] = None) -> argparse.Namespace:
     Returns:
         argparse.Namespace: the parsed command line arguments
     """
-    parser = argparse.ArgumentParser(description="DPP helpline tool")
+    parser = argparse.ArgumentParser(description="RAG QA tool")
     parser.add_argument("--filepath", help="Path to a file containing questions")
     parser.add_argument(
         "--index_dir", default="output", help="Directory containing tokenized data"
