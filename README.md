@@ -1,4 +1,4 @@
-# RAG POC QA Tool
+# RAG QA Tool
 
 ## Overview
 
