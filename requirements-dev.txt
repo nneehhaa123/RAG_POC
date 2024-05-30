@@ -1,0 +1,9 @@
+pre-commit
+pytest
+pytest-env
+pytest-mock
+coverage
+mypy
+flake8
+nbstripout
+-r requirements.txt

@@ -1,0 +1,13 @@
+#project: DPPAuditHelplineTool
+preprocessing:
+  max_context_length: 400
+  vector_simalirity_method: FlatL2
+  nclus_ivf: 3
+modelling:
+  semantic_model: sentence-transformers/multi-qa-mpnet-base-cos-v1
+  qna_model: google/flan-t5-small
+  use_gpu: False
+  top_k_context: 5
+  min_ans_length: 200
+  max_ans_length: 500
+  no_repeat_ngram_size: 7
