@@ -60,27 +60,3 @@ When you try to commit changes, it will run the checks defined in the `.pre-comm
 If any of these checks fail, you will not be able to commit your changes.
 This should prevent you getting build errors for linting errors on your PR.
 You can read more about pre-commit [here](https://pre-commit.com/).
-
-### Adding symbolic links in the .github/linters folder
-
-This project has two copies of the `setup.cfg` and `.python-lint` files. This is because pre-commit looks for
-the configuration files at the root of the repository, whereas the continuous integration workflow defined
-in `ci.yaml` is looking for these files in the `.github/linters` folder.
-
-To prevent having to maintain these files in two places, we can add symbolic links.
-To add a symbolic link in the `.github/linters` folder to the `setup.cfg` at the root of the repository, run:
-```bash
-cd .github/linters
-rm setup.cfg # Remove current setup.cfg file
-ln -s ../../setup.cfg # Add symbolic link to setup.cfg at repository root
-```
-
-We can do the same for the `.python-lint` file. From the root of the repository, run:
-```bash
-cd .github/linters
-rm .python-lint # Remove current .python-lint file
-ln -s ../../.python-lint # Add symbolic link to .python-lint at repository root
-```
-
-Now, when we update the setup.cfg or .python-lint at the root of the repository,
-it will also update the corresponding file in the .github/linters folder.
