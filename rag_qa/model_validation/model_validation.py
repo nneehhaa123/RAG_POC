@@ -10,7 +10,7 @@ from nltk.corpus import wordnet
 from nltk.stem import WordNetLemmatizer
 from sentence_transformers import util
 
-from dpp_helpline_qa.preprocessing.preprocessing import get_embeddings
+from rag_qa.preprocessing.preprocessing import get_embeddings
 
 nltk.download("averaged_perceptron_tagger")
 nltk.download("punkt")
