@@ -8,21 +8,20 @@ HERE = pathlib.Path(__file__).parent
 README = (HERE / "README.md").read_text()
 
 setuptools.setup(
-    name="dpp_helpline_qa",
+    name="rag_qa",
     version="0.0.1",
-    description="""A Question and Answer model to help the DPP Helpline team answer
-                   low-complexity and routine internal audit queries.""",  # noqa
+    description="""A Question and Answer model to find relevant context and generate answer for given queries.""",  # noqa
     long_description=README,
     packages=[
-        "dpp_helpline_qa",
-        "dpp_helpline_qa.model_validation",
-        "dpp_helpline_qa.modelling",
-        "dpp_helpline_qa.preprocessing",
+        "rag_qa",
+        "rag_qa.model_validation",
+        "rag_qa.modelling",
+        "rag_qa.preprocessing",
     ],
-    author="KPMGUK",
-    author_email="many@kpmg.co.uk",
+    author="neha gupta",
+    author_email="nehagupta.28jan@gmail.com",
     long_description_content_type="text/markdown",
-    url="https://github.com/KPMG-UK/dpp_helpline_qa",
+    url="https://github.com/nneehhaa123/RAG_POC",
     license="MIT",
     classifiers=[
         "License :: OSI Approved :: MIT License",
