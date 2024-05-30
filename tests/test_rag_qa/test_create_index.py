@@ -3,8 +3,8 @@ import glob
 import os
 from unittest.mock import Mock, patch
 
-from dpp_helpline_qa.create_index import arg_parser, main, unindexed
-from dpp_helpline_qa.modelling.semantic_search import load_model_ss
+from rag_qa.create_index import arg_parser, main, unindexed
+from rag_qa.modelling.semantic_search import load_model_ss
 
 
 def test_arg_parser() -> None:
@@ -14,7 +14,7 @@ def test_arg_parser() -> None:
     assert args.outdir == test_args[3]
 
 
-@patch("dpp_helpline_qa.create_index.glob")
+@patch("rag_qa.create_index.glob")
 def test_unindexed(glob_mock: Mock) -> None:
     indir = "test_data"
     outdir = "ouput"
